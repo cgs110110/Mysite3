@@ -33,7 +33,7 @@ function add_column(){
 	skin:"layui-layer-rim",
 	area: ["400px", "200px"],
 	title: "新增栏目",
-	content: '<div class="text-center" style="margin-top:20px"><p>请输入新的栏目名称</p><p>{{column_form.column}}</p></div>',
+	content: '<div class="text-center" style="margin-top:20px"><p>请输入新的栏目名称</p><p>{{columns_form.column}}</p></div>',
 	btn:['确定', '取消'],
 	yes: function(index, layero){
 	    column_name = $('#id_column').val();
@@ -56,23 +56,24 @@ function add_column(){
 	}
     });
 }
-
-function edit_column(the,column_id) {
+</script>
+<script type="text/javascript">
+function edit_column(the,column_id){
     var name = $(the).parents('tr').children('td').eq(1).text();
     var index = layer.open({
         type:1,
         skin:'layui-layer-rim',
         title:'编辑栏目',
         area:['400px','200px'],
-        content:'<div class="text-center" style="margin-top:20px"><p>'请编辑的栏目名称'</p><p><input type="text" id="new_name" value="'+name+'"></p></div>',
+        content:'<div class="text-center" style="margin-top:20px"><p>请编辑的栏目名称</p><p><input type="text" id="new_name" value="'+name+'"></p></div>',
         btn:['确定','取消'],
         yes: function(index,layero) {
-            new_name = $("#name").val();
+            new_name = $("#new_name").val();
             $.ajax({
                 url:'{% url 'article:rename_column' %}',
                 type: 'POST',
                 data: {'column_id':column_id,'column_name':new_name},
-                success:function (e) {
+                success:function(e){
                     if(e=='1'){
                         parent.location.reload();
                         layer.msg('good');
