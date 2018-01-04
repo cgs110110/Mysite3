@@ -41,7 +41,6 @@ def rename_article_column(request):
 @login_required(login_url='/account/login/')
 @require_POST
 @csrf_exempt
-
 def del_article_column(request):
     column_id = request.POST['column_id']
     try:
